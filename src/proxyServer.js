@@ -12,7 +12,7 @@ const server = http.createServer(async (req, res) => {
     console.log(host, subdomain);
 
     const target = await client.get(subdomain);
-    console.log("- Subdomain: " + target);
+    
     if (target) {
       proxy.web(req, res, { target });
     } else {
