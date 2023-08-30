@@ -9,11 +9,14 @@ const server = http.createServer(async (req, res) => {
     const host = req.headers.host;
     const subdomain = host.split('.')[0];
 
-    const target = await client.get(subdomain);
+    console.log(host, subdomain);
 
+    const target = await client.get(subdomain);
+    console.log("- Subdomain: " + target);
     if (target) {
       proxy.web(req, res, { target });
     } else {
+      console.log("- Subdomain: " + target);
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('Not Found');
     }
