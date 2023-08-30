@@ -3,7 +3,7 @@ const DomainServer = require("./src/domainServer.js")
 const Redis = require("./src/helpers")
 
 const DOMAIN_SERVER_PORT = +(process.env.DOMAIN_SERVER_PORT || 3020);
-const PROXY_SERVER_PORT = +(process.env.PROXY_SERVER_PORT || 81);
+const PROXY_SERVER_PORT = +(process.env.PROXY_SERVER_PORT || 81); //3022
 
 Redis.ConnectToRedis().then(() => {
   ProxyServer.listen(PROXY_SERVER_PORT, () => {

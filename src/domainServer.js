@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.post("/add-subdomain", async (req, res) => {
   try {
-    const { port, subdomain } = req.query;
+    const { port, subdomain } = {...req.body, ...req.query};
     if (port === undefined || subdomain === undefined) {
       return res.status(422).send("invalid port or subdomain");
     }
