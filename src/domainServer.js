@@ -10,8 +10,27 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log("- requesting: ", req.url)
+  next()
+})
 
-app.post("/add-subdomain", async (req, res) => {
+app.delete("/subdomain/delete/:subdomain", async (req, res) => {
+  try {
+    const { subdomain } = req.params;
+    if (!subdomain) {
+      return res.status(422).send("invalid subdomain");
+    }
+
+    await client.sendCommand(['DEL', subdomain]);
+    return res.status(200).send("ok");
+  } catch (error) {
+    console.error("- Domain Server Error:: ", error);
+    res.status(500).send("something went wrong")
+  }
+})
+
+app.post("/subdomain/add", async (req, res) => {
   try {
     const { port, subdomain } = {...req.body, ...req.query};
     console.log({ port, subdomain })
@@ -31,5 +50,7 @@ app.post("/add-subdomain", async (req, res) => {
     console.error("- Domain Server Error:: ", error);
   }
 })
+
+
 
 module.exports = app;
