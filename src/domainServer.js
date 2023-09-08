@@ -43,7 +43,7 @@ app.post("/subdomain/add", async (req, res) => {
     if (exist) return res.status(200).send("subdomain already exists");
 
     await client.set(subdomain, `http://localhost:${port}`);
-    queue.add({ subdomain });
+    // queue.add({ subdomain });
     return res.status(200).send('OK');
   } catch (error) {
     res.status(500).send("something went wrong")
